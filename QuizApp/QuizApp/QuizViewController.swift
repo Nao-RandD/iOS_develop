@@ -33,7 +33,6 @@ class QuizViewController: UIViewController {
         if sender.tag - 1 == answerIndex{
             correct += 1
         }
-        
         questionIndex += 1 // 問題数を追加する
         
         // 指定の問題数をこなしていたら結果画面に遷移
@@ -51,14 +50,20 @@ class QuizViewController: UIViewController {
         if let resultVC = segue.destination as? ResultViewController{
             resultVC.result = Double(correct)/Double(total) * 100.0
         }
+        /**
+         次の画面のViewControllerをSegueの目的地としてresultVCに代入している。
+         そして、resultVC.resultで結果のViewControllerの変数resultに値を入れている
+         */
     }
 
-    // 問題をセットして
+    // 乱数を生成して問題が画面に表示するメソッド
     func setQuestions(){
         let leftNum = Int(arc4random_uniform(10))
         var centerNum = Int(arc4random_uniform(10))
         
+        // 四則演算に対応した解答となるため、4つの乱数(0~4)を生成するようにする
         answerIndex = Int(arc4random_uniform(4))
+        // 生成した乱数に応じて、計算結果の解として問題画面に反映する
         switch answerIndex {
         case 0:
             rightNumberLabel.text = "\(leftNum + centerNum)"
@@ -67,6 +72,7 @@ class QuizViewController: UIViewController {
         case 2:
             rightNumberLabel.text = "\(leftNum * centerNum)"
         default:
+            // 0で割ることはできないので、0の生成の場合は1として割り算の場合は変更する
             if centerNum == 0{
                 centerNum = 1
             }

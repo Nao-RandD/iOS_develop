@@ -15,12 +15,14 @@ class ResultViewController: UIViewController {
     @IBOutlet var resultLabel: UILabel!
     @IBOutlet var messageLabel: UILabel!
     
-    // 
+    // Viewを表示するときに呼ばれるメソッド
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // 正答率を結果画面に表示
         resultLabel.text = "\(round(result))%"
         
+        // 結果画面に正答率に応じたメッセージを結果画面に表示
         if result < 50{
             messageLabel.text = "PLEASE TRY AGAIN!"
         }else if result < 80{
